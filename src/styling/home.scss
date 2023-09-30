@@ -1,0 +1,161 @@
+@mixin flex{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+@font-face {
+  font-family: 'CopperplateGothicLight';
+  src: url('CopperplateGothicLightRegular.ttf') format('truetype');
+}
+
+
+$Gray: #ccc;
+$Light-gray: #eee;
+$Silver: #c0c0c0;
+$Charcoal: #333;
+$Midnight-blue: #2c3e50;
+$Navy-blue: #000080;
+$Dark-gray: #666;
+$Gunmetal: #2a2a2a;
+$Taupe: #607d8b;
+$Olive-green: #808000;
+$Moss-green: #9b9b73;
+
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body{
+background-color: #a99274;
+
+}
+
+
+.box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    height: auto;
+    width: auto;  
+    background-color: rgb(0, 0, 0);
+    margin-top: 2rem;
+    margin-left: auto;
+    margin-right: auto; 
+    margin-bottom: 2rem;
+    border-radius: 2rem;
+
+    
+
+    .title{
+        color: #DDCEBA;
+        margin-top:1rem;
+        margin-bottom:1rem;
+        font-family: 'CopperplateGothicLight', Arial, sans-serif;
+        font-size: 7rem;
+    }
+
+.vocab {
+
+    height: auto;
+    width: auto;
+    background-color: $Midnight-blue;
+    margin:1rem;
+    border: 2px solid $Midnight-blue;
+    border-radius: 1rem;
+    @include flex();
+    flex-direction: column; 
+
+    h1{
+    font-family: 'CopperplateGothicLight', Arial, sans-serif;
+    padding: 1rem;
+    margin:1rem;
+    text-decoration: underline;
+    text-underline-offset: .7rem;
+    font-size: 2.6rem;
+    font-weight: 800;
+        
+    }
+
+    p{
+    padding: 1rem;
+    margin:1rem;
+    font-size: 1.3rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 500;
+    }
+    }
+
+}
+
+
+@media (max-width: 1500px){ 
+           
+.box{
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    flex-direction: column;
+
+    height: auto;
+    width:auto;
+    background-color: rgb(0, 0, 0);
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+
+    border-radius: 2rem;
+
+    
+
+    .title{
+        color: #DDCEBA;
+        margin-top:1rem;
+        margin-bottom:1rem;
+        font-family: 'CopperplateGothicLight', Arial, sans-serif;
+        font-size: 3rem;
+        padding: 1rem;
+    }
+
+    .vocab{
+
+    height: auto;
+    width: auto;
+    background-color: $Midnight-blue;
+    margin:1rem;
+    border: 2px solid $Midnight-blue;
+    border-radius: 1rem;
+    @include flex();
+    flex-direction: column; 
+
+    h1{
+    font-family: 'CopperplateGothicLight', Arial, sans-serif;
+    padding: 1rem;
+    margin:1rem;
+    text-decoration: underline;
+    text-underline-offset: .7rem;
+    font-size: 1.6rem; 
+    font-weight: 800;
+    line-height: 3rem;
+        
+    }
+
+    p{
+    padding: 1rem;
+    margin:1rem;
+    font-size: 1.3rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 500;
+    }
+}
+
+}
+
+}
+
