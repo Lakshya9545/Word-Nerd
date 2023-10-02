@@ -1,124 +1,61 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios'; 
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "../styling/home.css";
 
-
 function Home() {
+  const [wordData, setWordData] = useState([]);
 
-const [meanings, setMeanings] = useState([]);
+  async function fetchRandomWords() {
+    const response = await axios.get(
+      "https://random-word-api.herokuapp.com/word?number=5"
+    );
+    const randomWords = response.data;
 
-    const dictionaryAPI = async () => {
-    
-        try {
-            const data = await axios.get("https://api.dictionaryapi.dev/api/v2/entries/en/plane");
+    const definitionResponses = await Promise.all(
+      randomWords.map((randomWord) => {
+        return axios.get(
+          `https://api.dictionaryapi.dev/api/v2/entries/en/${randomWord}`
+        );
+      })
+    );
 
-        } catch (error) {
-            console.log(error);
-        }
-    
+    const wordDataWithExplanations = [];
+    for (let i = 0; i < randomWords.length; i++) {
+      const definitionResponse = definitionResponses[i];
+      const word = randomWords[i];
+      const meanings = definitionResponse.data[0]?.meanings;
+      const explanation = meanings && meanings[0]?.definitions[0]?.definition;
+
+      wordDataWithExplanations.push({ word, explanation });
     }
 
-useEffect(() => {
-dictionaryAPI();
-
-}, [])
-
-
-
-{/*const [wordData, setWordData] = useState({ word: "", explanation: "" });
+    setWordData(wordDataWithExplanations);
+  }
 
   useEffect(() => {
-    // Function to fetch random word and explanation
-    const fetchRandomWord = async () => {
-      try {
-        // Replace 'YOUR_API_KEY' with your actual API key
-        const apiKey = "YOUR_API_KEY";
-        const response = await axios.get(
-          `https://api.dictionaryapi.dev/api/v2/entries/en/random?apiKey=${apiKey}`
-        );
-
-        const { word, meanings } = response.data[0];
-        const explanation =
-          meanings[0]?.definition || "No definition available";
-
-        setWordData({ word, explanation });
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchRandomWord();
-  }, []);*/}
+    fetchRandomWords();
+  }, []);
 
 
-
-
+  
   return (
     <>
       <div className="box">
         <h1 className="title"> Word Nerd </h1>
 
-        <div className="vocab">
-          <h1>Random word</h1>
-          <p>
-            It's explanation :- Lorem ipsum dolor, sit amet consectetur
-            adipisicing elit. Voluptatem neque accusantium delectus enim ab
-            libero beatae, possimus obcaecati dolorem nostrum ex sit reiciendis
-            temporibus quasi, repellat natus quo nesciunt itaque consectetur
-            voluptatibus praesentium, pariatur maiores accusamus labore.
-            Voluptatibus voluptatem perspiciatis aliquam illo praesentium
-            assumenda consequatur. Quibusdam eveniet ea corrupti hic aut dolore
-            blanditiis quaerat! Mollitia voluptatibus ducimus molestiae nesciunt
-            animi dolore recusandae commodi esse! Similique blanditiis nulla ut
-            animi, labore cum! Ipsam dolorum maxime voluptatibus veritatis,
-            ullam accusantium, sunt suscipit necessitatibus praesentium soluta
-            error nisi tenetur. Itaque voluptatem qui vitae? Rerum cumque
-            deserunt sed mollitia vel quisquam perferendis veritatis quos?
-          </p>
-        </div>
+        {wordData.map((data, index) => (
+          <div className="vocab" key={index}>
+            <h1>{data.word}</h1>
+            <p>{data.explanation}</p>
+          </div>
+        ))}
 
-        <div className="vocab">
-          <h1>Random word</h1>
-          <p>
-            It's explanation :- Lorem ipsum dolor, sit amet consectetur
-            adipisicing elit. Voluptatem neque accusantium delectus enim ab
-            libero beatae, possimus obcaecati dolorem nostrum ex sit reiciendis
-            temporibus quasi, repellat natus quo nesciunt itaque consectetur
-            voluptatibus praesentium, pariatur maiores accusamus labore.
-            Voluptatibus voluptatem perspiciatis aliquam illo praesentium
-            assumenda consequatur. Quibusdam eveniet ea corrupti hic aut dolore
-            blanditiis quaerat! Mollitia voluptatibus ducimus molestiae nesciunt
-            animi dolore recusandae commodi esse! Similique blanditiis nulla ut
-            animi, labore cum! Ipsam dolorum maxime voluptatibus veritatis,
-            ullam accusantium, sunt suscipit necessitatibus praesentium soluta
-            error nisi tenetur. Itaque voluptatem qui vitae? Rerum cumque
-            deserunt sed mollitia vel quisquam perferendis veritatis quos?
-          </p>
-        </div>
-        <div className="vocab">
-          <h1>Random word</h1>
-          <p>
-            It's explanation :- Lorem ipsum dolor, sit amet consectetur
-            adipisicing elit. Voluptatem neque accusantium delectus enim ab
-            libero beatae, possimus obcaecati dolorem nostrum ex sit reiciendis
-            temporibus quasi, repellat natus quo nesciunt itaque consectetur
-            voluptatibus praesentium, pariatur maiores accusamus labore.
-            Voluptatibus voluptatem perspiciatis aliquam illo praesentium
-            assumenda consequatur. Quibusdam eveniet ea corrupti hic aut dolore
-            blanditiis quaerat! Mollitia voluptatibus ducimus molestiae nesciunt
-            animi dolore recusandae commodi esse! Similique blanditiis nulla ut
-            animi, labore cum! Ipsam dolorum maxime voluptatibus veritatis,
-            ullam accusantium, sunt suscipit necessitatibus praesentium soluta
-            error nisi tenetur. Itaque voluptatem qui vitae? Rerum cumque
-            deserunt sed mollitia vel quisquam perferendis veritatis quos?
-          </p>
-        </div>
-
-        <a href="">New words</a>
-
+        <a href="#" onClick={() => fetchRandomWords()}>
+          New words
+        </a>
       </div>
     </>
   );
 }
 
-export default Home
+export default Home;
