@@ -25,7 +25,7 @@ function Home() {
         const definitionResponse = definitionResponses[i];
         const word = randomWords[i];
         const meanings = definitionResponse.data[0]?.meanings;
-        const explanation = meanings && meanings[0]?.definitions[0]?.definition;
+        const explanation = meanings?.[0]?.definitions?.[0]?.definition;
 
         wordDataWithExplanations.push({ word, explanation });
       }
@@ -48,13 +48,16 @@ function Home() {
         {wordData.map((data, index) => (
           <div className="vocab" key={index}>
             <h1>{data.word}</h1>
-            <p>{data.explanation}</p>
+            <p>{data.explanation ?? "No explanation found"}</p>
           </div>
         ))}
 
-        <a href="#" onClick={() => fetchRandomWords()}>
-          New words
-        </a>
+     
+        
+          <a href="#" onClick={() => fetchRandomWords()}>
+            NEW WORDS
+          </a>
+       
       </div>
     </>
   );
