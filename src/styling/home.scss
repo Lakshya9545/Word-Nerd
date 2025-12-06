@@ -1,178 +1,136 @@
-@mixin flex{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
 @font-face {
   font-family: 'CopperplateGothicLight';
   src: url('CopperplateGothicLightRegular.ttf') format('truetype');
 }
 
-
-$Gray: #ccc;
-$Light-gray: #eee;
-$Silver: #c0c0c0;
-$Charcoal: #333;
-$Midnight-blue: #2c3e50;
-$Navy-blue: #000080;
-$Dark-gray: #666;
-$Gunmetal: #2a2a2a;
-$Taupe: #607d8b;
-$Olive-green: #808000;
-$Moss-green: #9b9b73;
-
-
-*{
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
-body{
-background-color: #a99274;
 
+body {
+  background-color: #f0f2f5;
+  color: #333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-
-.box{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-
-    height: auto;
-    width: auto;  
-    background-color: rgb(0, 0, 0);
-    margin-top: 2rem;
-    margin-left: auto;
-    margin-right: auto; 
-    margin-bottom: 2rem;
-    border-radius: 2rem;
-
-    
-
-    .title{
-        color: #DDCEBA;
-        margin-top:1rem;
-        margin-bottom:1rem;
-        font-family: 'CopperplateGothicLight', Arial, sans-serif;
-        font-size: 7rem;
-    }
-
-.vocab {
-
-    height: auto;
-    width: auto;
-    background-color: $Midnight-blue;
-    margin:1rem;
-    border: 2px solid $Midnight-blue;
-    border-radius: 1rem;
-    @include flex();
-    flex-direction: column; 
-
-    h1{
-    font-family: 'CopperplateGothicLight', Arial, sans-serif;
-    padding: 1rem;
-    margin:1rem;
-    text-decoration: underline;
-    text-underline-offset: .7rem;
-    font-size: 2.6rem;
-    font-weight: 800;
-        
-    }
-
-    p{
-    padding: 1rem;
-    margin:1rem;
-    font-size: 1.3rem;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-weight: 500;
-    }
-    }
-
-        
-
-        a{
-        text-decoration: none;
-        color:#0b1c24;
-        // margin-bottom: 2rem;
-        background-color: #d7d7d7;
-        height: auto;
-        width: auto;
-        border-radius: .5rem;
-        margin: 2rem;
-        text-align: center;
-        @include flex();
-        font-size: 1.3rem;
-        padding: 1rem;
-        font-weight: 700;
-    }
-
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
-
-@media (max-width: 1500px){ 
-           
-.box{
-    display: flex;
-    align-items: center; 
-    justify-content: center;
-    flex-direction: column;
-
-    height: auto;
-    width:auto;
-    background-color: rgb(0, 0, 0);
-    margin-left: 1rem;
-    margin-right: 1rem;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    border-radius: 2rem;
-
-    
-
-    .title{
-        color: #DDCEBA;
-        margin-top:1rem;
-        margin-bottom:1rem;
-        font-family: 'CopperplateGothicLight', Arial, sans-serif;
-        font-size: 3rem;
-        padding: 1rem;
-    }
-
-    .vocab{
-
-    height: auto;
-    width: auto;
-    background-color: $Midnight-blue;
-    margin:1rem;
-    border: 2px solid $Midnight-blue;
-    border-radius: 1rem;
-    @include flex();
-    flex-direction: column; 
-
-    h1{
-    font-family: 'CopperplateGothicLight', Arial, sans-serif;
-    padding: 1rem;
-    margin:1rem;
-    text-decoration: underline;
-    text-underline-offset: .7rem;
-    font-size: 1.6rem; 
-    font-weight: 800;
-    line-height: 3rem;
-        
-    }
-
-    p{
-    padding: 1rem;
-    margin:1rem;
-    font-size: 1.3rem;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-weight: 500;
-    }
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
 }
 
+.title {
+  font-family: 'CopperplateGothicLight', serif;
+  font-size: 3rem;
+  color: #2c3e50;
 }
 
+.refresh-btn {
+  padding: 0.8rem 1.5rem;
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.refresh-btn:hover {
+  background-color: #34495e;
+}
+
+.refresh-btn:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-auto-rows: 200px;
+  gap: 1.5rem;
+}
+
+.bento-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+}
+
+.bento-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+}
+
+.bento-card h2 {
+  font-family: 'CopperplateGothicLight', serif;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+  text-transform: capitalize;
+}
+
+.bento-card p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #555;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Bento Sizes */
+.bento-card.large {
+  grid-column: span 2;
+  grid-row: span 2;
+  background-color: #2c3e50;
+}
+
+.bento-card.large h2 {
+  color: #ecf0f1;
+  font-size: 2.5rem;
+}
+
+.bento-card.large p {
+  color: #bdc3c7;
+  font-size: 1.2rem;
+  -webkit-line-clamp: 8;
+}
+
+.bento-card.medium {
+  grid-column: span 2;
+  background-color: #e0e6ed;
+}
+
+.bento-card.small {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+
+@media (max-width: 768px) {
+  .bento-card.large, .bento-card.medium {
+    grid-column: span 1;
+    grid-row: auto;
+  }
+  .bento-grid {
+    grid-auto-rows: auto;
+  }
 }
 
